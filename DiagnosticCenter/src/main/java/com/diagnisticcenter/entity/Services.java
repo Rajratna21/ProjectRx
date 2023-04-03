@@ -1,11 +1,10 @@
 package com.diagnisticcenter.entity;
 
 import java.math.BigDecimal;
-
-
-
-
-
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.ManyToAny;
 
@@ -19,6 +18,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -90,8 +91,28 @@ public class Services {
 		this.servicePrice = servicePrice;
 	}
 	
+//	
+//	@ManyToMany()
+//    private List<Package> packages = new ArrayList();
+
+
+//	public List<Package> getPackages() {
+//		return packages;
+//	}
+//
+//	public void setPackages(List<Package> packages) {
+//		this.packages = packages;
+//	}
 	
-	
-	
-	
+	@ManyToMany
+	@JoinTable(
+	    name = "package_services",
+	    joinColumns = @JoinColumn(name = "service_id"),
+	    inverseJoinColumns = @JoinColumn(name = "package_id")
+	)
+	private Set<Package> packages1;
+
+	public Services() {
+	    packages1 = new HashSet<>();
+	}
 }

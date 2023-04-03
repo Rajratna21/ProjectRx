@@ -1,9 +1,8 @@
 package com.diagnisticcenter.service;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,15 +51,11 @@ public class userService {
 			return false;
 		}
 		if(!matcher.matches() ) {
-			//userRepo.save(user);
-			//return true;
-			return false;
+		return false;
 		}
 		if(!matcher1.matches())
 		{
-			//userRepo.save(user);
-			//return true;
-			return false;
+		return false;
 		}
 		
 		userRepo.save(user);
@@ -70,30 +65,20 @@ public class userService {
 	public boolean checkuserLogin(Userdatadto userdto) {
 		
 		BCryptPasswordEncoder bcrypt= new BCryptPasswordEncoder();
-		//Optional<UserInfo> userlist=userRepo.findById(userdto.getUid());
-//		if(userlist.isPresent())
-//		{
 		boolean status=false;
 			List<UserInfo>userlist=userRepo.findAll();
 			for(int i=0;i<userlist.size();i++)
 			{	
-				
 				if((userdto.getEmailId().equals(userlist.get(i).getEmailId())) && bcrypt.matches(userdto.getPassword(), userlist.get(i).getPassword()))
 						{
 					
 							saveLoginDate(userlist.get(i));
 							status=true ;
 						}	
-//				if(bcrypt.matches(userdto.getPassword(), userlist.get(i).getPassword()))
-//				{
-//					return false;
-//				}
-//				else
-//					return true;
 			}
 			
 			return status;
-//		}
+
 		
 	}
 	
